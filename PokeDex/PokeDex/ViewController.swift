@@ -26,14 +26,16 @@ class ViewController: UIViewController {
         
         collectionView.register(PokemonCollectionViewCell.nib(), forCellWithReuseIdentifier: PokemonCollectionViewCell.identifier)
         
-        networker.request() { [weak self] posts, error in
+        
+        networker.Pokemons() { [weak self] pokemons, error in
             
         if let error = error {
             print("error", error)
                 return
             }
 
-       // self?.pokemons = pokemons
+            let pokemon1: Pokemon = Pokemon(id: 1, name: "bulb", sprites: Sprites(front_default: pokemons))
+        self?.pokemons = [pokemon1]
             
         DispatchQueue.main.async {
             self?.collectionView.reloadData()
@@ -64,15 +66,37 @@ extension UIViewController: UICollectionViewDelegate { // helps pickup interacti
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return pokemons.count < 20 ? pokemons.count : 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PokemonCollectionViewCell.identifier, for: indexPath) as! PokemonCollectionViewCell
         cell.backgroundColor = .red
         // TODO: -  Cell configure() with image
+        
+        let pokemon = pokemons[indexPath.item]
+        cell.title = pokemon.name
+        
+        cell.image = nil
+        
+    
+          networker.image(pokemon: pokemon) { data, error  in
+              let img = self.image(data: data)
+            DispatchQueue.main.async {
+                cell.image = img
+            }
+          }
+        
+        
         return cell
     }
+    
+    func image(data: Data?) -> UIImage? {
+        if let data = data {
+          return UIImage(data: data)
+        }
+        return UIImage(systemName: "picture")
+      }
 }
 
 // MARK: - CollectionView Delegate Flow Layout

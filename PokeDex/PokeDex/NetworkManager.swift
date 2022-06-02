@@ -7,57 +7,104 @@
 
 import Foundation
 
-class NetworkManager {
-    
-    // MARK: - Singleton
-    static var shared = NetworkManager()
-    
-    //
-    let session: URLSession
-      
-    init() {
-        let config = URLSessionConfiguration.default
-        session = URLSession(configuration: config)
-    }
-    
-    //
-    var urlString = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
-
-        func request(completion: @escaping ([Pokemon]?, Error?) -> (Void)) {
-        let resource = "1.png"
-        self.urlString += resource
-        let url = URL(string: urlString)!
-        
-        // MARK: - Treat the request
-        let dataTask = session.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Request error. Received: \(error)")
-            } else if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                print("Request error, no 200 status. Received: \(response.statusCode)")
-            } else if let data = data {
-                
-                // MARK: - Have data
-                var result: Response?
-                do {
-                    result = try JSONDecoder().decode(Response.self, from: data)
-                } catch {
-                    print("failed to convert JSON \(error.localizedDescription)")
-                }
-                
-                // json = our decoded data
-                guard let json = result else {
-                    return
-                }
-                print(json.status)
-                
-            }
-        }
-        
-    }
-    
+enum NetworkManagerError: Error {
+  case badResponse(URLResponse?)
+  case badData
+  case badLocalUrl
 }
 
-struct Response: Codable {
-    let status: String
-    let products: [Pokemon]
+fileprivate struct APIResponse: Codable {
+    let sprites: Sprites
+}
+
+class NetworkManager {
+  
+  static var shared = NetworkManager()
+  
+  private var images = NSCache<NSString, NSData>()
+  
+  let session: URLSession
+  
+  init() {
+      session = URLSession(configuration: .default)
+  }
+  
+
+  
+  func Pokemons(completion: @escaping (String?, Error?) -> (Void)) {
+      let req = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
+    
+    
+    let task = session.dataTask(with: req) { data, response, error in
+      if let error = error {
+        completion(nil, error)
+        return
+      }
+      
+      guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+        completion(nil, NetworkManagerError.badResponse(response))
+        return
+      }
+      
+      guard let data = data else {
+        completion(nil, NetworkManagerError.badData)
+        return
+      }
+      
+      do {
+        let response = try JSONDecoder().decode(APIResponse.self, from: data)
+          completion(response.sprites.front_default!, nil)
+          print(response)
+      } catch let error {
+        completion(nil, error)
+      }
+    }
+    
+    task.resume()
+  }
+  
+  private func download(imageURL: URL, completion: @escaping (Data?, Error?) -> (Void)) {
+    if let imageData = images.object(forKey: imageURL.absoluteString as NSString) {
+      print("using cached images")
+      completion(imageData as Data, nil)
+      return
+    }
+    
+    let task = session.downloadTask(with: imageURL) { localUrl, response, error in
+      if let error = error {
+        completion(nil, error)
+        return
+      }
+      
+      guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+        completion(nil, NetworkManagerError.badResponse(response))
+        return
+      }
+      
+      guard let localUrl = localUrl else {
+        completion(nil, NetworkManagerError.badLocalUrl)
+        return
+      }
+      
+      do {
+        let data = try Data(contentsOf: localUrl)
+        self.images.setObject(data as NSData, forKey: imageURL.absoluteString as NSString)
+        completion(data, nil)
+      } catch let error {
+        completion(nil, error)
+      }
+    }
+    
+    task.resume()
+  }
+  
+  func image(pokemon: Pokemon, completion: @escaping (Data?, Error?) -> (Void)) {
+      if let safeString = pokemon.sprites.front_default {
+          let url = URL(string: safeString)!
+          download(imageURL: url, completion: completion)
+      }
+  }
+  
+  
+  
 }

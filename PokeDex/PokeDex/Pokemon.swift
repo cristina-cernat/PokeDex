@@ -8,13 +8,16 @@
 import Foundation
 
 // Model
-struct Image: Codable {
-    let image: String
+struct Sprites: Codable {
+    let front_default: String?
+//    let front_shiny: String?
+//    let back_default: String?
+//    let back_shiny: String?
 }
 
 struct Pokemon: Codable {
-    let id: String
+    let id: Int
     let name: String
-    let imageSprites: [Image]
+    let sprites: Sprites
     
 }

@@ -12,6 +12,19 @@ class PokemonCollectionViewCell: UICollectionViewCell {
     static let identifier = "PokemonCollectionViewCell"
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    var image: UIImage? {
+        didSet {
+          imageView.image = image
+        }
+      }
+    
+    var title: String? {
+        didSet {
+          titleLabel.text = title
+        }
+      }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,7 +35,5 @@ class PokemonCollectionViewCell: UICollectionViewCell {
         return UINib(nibName: "PokemonCollectionViewCell", bundle: nil)
     }
     
-    public func configure(with image: UIImage) {
-        imageView.image = image
-    }
+    
 }
