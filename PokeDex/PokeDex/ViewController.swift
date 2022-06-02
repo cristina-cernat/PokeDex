@@ -8,8 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+    // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    // MARK: - Local variables
+    let networker = NetworkManager.shared
+    var pokemons: [Pokemon] = []
+   // let url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+    // number.png; /shiny/number.png; /back.png; /back/shiny/number.png
     
     // MARK: - View life cycle
     override func viewDidLoad() {
@@ -19,6 +25,22 @@ class ViewController: UIViewController {
         collectionView.dataSource = self
         
         collectionView.register(PokemonCollectionViewCell.nib(), forCellWithReuseIdentifier: PokemonCollectionViewCell.identifier)
+        
+        networker.request() { [weak self] posts, error in
+            
+        if let error = error {
+            print("error", error)
+                return
+            }
+
+       // self?.pokemons = pokemons
+            
+        DispatchQueue.main.async {
+            self?.collectionView.reloadData()
+            }
+        }
+          
+
 
     }
 
@@ -53,6 +75,7 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - CollectionView Delegate Flow Layout
 extension UIViewController: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let flowayout = collectionViewLayout as? UICollectionViewFlowLayout
