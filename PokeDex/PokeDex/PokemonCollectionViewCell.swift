@@ -18,7 +18,7 @@ class PokemonCollectionViewCell: UICollectionViewCell {
         didSet {
           imageView.image = image
         }
-      }
+    }
     
     var title: String? {
         didSet {

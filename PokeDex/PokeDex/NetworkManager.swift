@@ -13,10 +13,6 @@ enum NetworkManagerError: Error {
   case badLocalUrl
 }
 
-fileprivate struct APIResponse: Codable {
-    let sprites: Sprites
-}
-
 class NetworkManager {
   
   static var shared = NetworkManager()
@@ -31,8 +27,9 @@ class NetworkManager {
   
 
   
-  func Pokemons(completion: @escaping (String?, Error?) -> (Void)) {
-      let req = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
+    func Pokemons(id: Int, completion: @escaping (Pokemon?, Error?) -> (Void)) {
+      
+      let req = URL(string: "https://pokeapi.co/api/v2/pokemon/" + String(id))!
     
     
     let task = session.dataTask(with: req) { data, response, error in
@@ -52,8 +49,9 @@ class NetworkManager {
       }
       
       do {
-        let response = try JSONDecoder().decode(APIResponse.self, from: data)
-          completion(response.sprites.front_default!, nil)
+        let response = try JSONDecoder().decode(Pokemon.self, from: data)
+          completion(response, nil)
+          
           print(response)
       } catch let error {
         completion(nil, error)

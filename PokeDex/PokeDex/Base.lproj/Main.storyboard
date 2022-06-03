@@ -62,7 +62,50 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="98"/>
+            <point key="canvasLocation" x="17" y="112"/>
+        </scene>
+        <!--Pokemon DetailVC-->
+        <scene sceneID="oGq-24-9Ni">
+            <objects>
+                <viewController storyboardIdentifier="pokemonDetail" id="k3T-sg-6IJ" customClass="PokemonDetailVC" customModule="PokeDex" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zc4-cY-mDo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MgW-WU-MuO">
+                                <rect key="frame" x="0.0" y="44" width="414" height="414"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxT-Xv-Is5">
+                                <rect key="frame" x="20" y="478" width="374" height="32"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wlE-A5-FkT"/>
+                        <color key="backgroundColor" systemColor="systemPinkColor"/>
+                        <constraints>
+                            <constraint firstItem="MgW-WU-MuO" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" id="0L9-BG-jtd"/>
+                            <constraint firstItem="wlE-A5-FkT" firstAttribute="trailing" secondItem="MgW-WU-MuO" secondAttribute="trailing" id="1hj-O1-KY5"/>
+                            <constraint firstItem="wlE-A5-FkT" firstAttribute="trailing" secondItem="OxT-Xv-Is5" secondAttribute="trailing" constant="20" id="8yW-If-dny"/>
+                            <constraint firstItem="MgW-WU-MuO" firstAttribute="top" secondItem="wlE-A5-FkT" secondAttribute="top" id="L4D-X1-6Hl"/>
+                            <constraint firstItem="MgW-WU-MuO" firstAttribute="height" secondItem="zc4-cY-mDo" secondAttribute="width" multiplier="1:1" id="MQZ-5c-a3O"/>
+                            <constraint firstItem="OxT-Xv-Is5" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" constant="20" id="TVk-6R-6aL"/>
+                            <constraint firstItem="OxT-Xv-Is5" firstAttribute="top" secondItem="MgW-WU-MuO" secondAttribute="bottom" constant="20" id="kjf-wI-fTX"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="imageView" destination="MgW-WU-MuO" id="H7q-R5-01d"/>
+                            <outlet property="title" destination="OxT-Xv-Is5" id="pgo-PA-iUo"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="imageViewDetail" destination="MgW-WU-MuO" id="ezw-hY-y12"/>
+                        <outlet property="titleLabel" destination="OxT-Xv-Is5" id="IEF-37-HLb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oir-bG-Yvy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="719" y="112"/>
         </scene>
     </scenes>
     <resources>
