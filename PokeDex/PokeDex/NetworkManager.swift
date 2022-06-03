@@ -52,7 +52,7 @@ class NetworkManager {
         let response = try JSONDecoder().decode(Pokemon.self, from: data)
           completion(response, nil)
           
-          print(response)
+         // print(response)
       } catch let error {
         completion(nil, error)
       }

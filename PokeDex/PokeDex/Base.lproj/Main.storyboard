@@ -62,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="17" y="112"/>
+            <point key="canvasLocation" x="3" y="120"/>
         </scene>
         <!--Pokemon DetailVC-->
         <scene sceneID="oGq-24-9Ni">
@@ -93,13 +93,9 @@
                             <constraint firstItem="OxT-Xv-Is5" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" constant="20" id="TVk-6R-6aL"/>
                             <constraint firstItem="OxT-Xv-Is5" firstAttribute="top" secondItem="MgW-WU-MuO" secondAttribute="bottom" constant="20" id="kjf-wI-fTX"/>
                         </constraints>
-                        <connections>
-                            <outlet property="imageView" destination="MgW-WU-MuO" id="H7q-R5-01d"/>
-                            <outlet property="title" destination="OxT-Xv-Is5" id="pgo-PA-iUo"/>
-                        </connections>
                     </view>
                     <connections>
-                        <outlet property="imageViewDetail" destination="MgW-WU-MuO" id="ezw-hY-y12"/>
+                        <outlet property="imagePokemonDetail" destination="MgW-WU-MuO" id="9X7-6R-1KW"/>
                         <outlet property="titleLabel" destination="OxT-Xv-Is5" id="IEF-37-HLb"/>
                     </connections>
                 </viewController>

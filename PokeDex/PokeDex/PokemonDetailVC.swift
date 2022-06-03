@@ -10,7 +10,8 @@ import UIKit
 class PokemonDetailVC: UIViewController {
 
     
-    @IBOutlet weak var imageViewDetail: UIImageView!
+
+    @IBOutlet weak var imagePokemonDetail: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
     var titleText = ""
@@ -20,7 +21,7 @@ class PokemonDetailVC: UIViewController {
         super.viewDidLoad()
 
         titleLabel.text = titleText
-        imageViewDetail.image = imagePokemon
+        imagePokemonDetail.image = imagePokemon
     }
   
 

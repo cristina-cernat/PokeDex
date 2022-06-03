@@ -59,8 +59,10 @@ extension UIViewController: UICollectionViewDelegate { // helps pickup interacti
         print("You tapped me \(indexPath.item)")
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "pokemonDetail") as! PokemonDetailVC
-//        vc.imagePokemon =
-      //  present(vc, animated: true)
+//        vc.titleText = myPokemons
+     //   let pokemon = myPokemons[indexPath.item]
+        
+        present(vc, animated: true)
         
     }
     
@@ -83,13 +85,13 @@ extension ViewController: UICollectionViewDataSource {
         
         cell.image = nil
         
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "pokemonDetail") as! PokemonDetailVC
+       // let vc = self.storyboard?.instantiateViewController(withIdentifier: "pokemonDetail") as! PokemonDetailVC
 
         networker.image(pokemon: pokemon!) { data, error  in
             let img = self.image(data: data)
             DispatchQueue.main.async {
                 cell.image = img
-                vc.imagePokemon = img ?? UIImage(systemName: "picture")!
+               // vc.imagePokemon = img ?? UIImage(systemName: "picture")!
             }
         }
         

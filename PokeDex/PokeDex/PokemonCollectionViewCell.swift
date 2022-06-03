@@ -11,12 +11,13 @@ class PokemonCollectionViewCell: UICollectionViewCell {
 
     static let identifier = "PokemonCollectionViewCell"
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imagePokemon: UIImageView!
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     var image: UIImage? {
         didSet {
-          imageView.image = image
+          imagePokemon.image = image
         }
     }
     
