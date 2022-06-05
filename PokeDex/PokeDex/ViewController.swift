@@ -47,26 +47,29 @@ class ViewController: UIViewController {
 
     }
 
-    
-    
-
-}
-
-// MARK: - CollectionView Delegate
-extension UIViewController: UICollectionViewDelegate { // helps pickup interactions with the cells
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    // MARK: - CollectionView Delegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         print("You tapped me \(indexPath.item)")
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "pokemonDetail") as! PokemonDetailVC
-//        vc.titleText = myPokemons
-     //   let pokemon = myPokemons[indexPath.item]
+        let pokemon = myPokemons[indexPath.item]
+        vc.titleText = pokemon!.name
+        
+        //vc.imagePokemon = pokemon!.imageData
+        if let data = pokemon!.imageData {
+            vc.imagePokemon = UIImage(data: data)!
+        }
+        
+        
         
         present(vc, animated: true)
         
     }
     
+
 }
+
 
 
 // MARK: - CollectionView DataSource
@@ -91,6 +94,14 @@ extension ViewController: UICollectionViewDataSource {
             let img = self.image(data: data)
             DispatchQueue.main.async {
                 cell.image = img
+                
+                // MARK: - Store image in pokemon structure
+                // myPokemons[indexPath.item]?.imageData = img
+                if let data = img?.pngRepresentationData {  // If image type is PNG
+                    self.myPokemons[indexPath.item]?.imageData = data
+                } else if let data = img?.jpegRepresentationData { // If image type is JPG/JPEG
+                    self.myPokemons[indexPath.item]?.imageData = data
+                     }
                // vc.imagePokemon = img ?? UIImage(systemName: "picture")!
             }
         }
