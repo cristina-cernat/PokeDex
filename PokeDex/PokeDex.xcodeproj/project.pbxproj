@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B0748F3284D83B4008170D3 /* PokemonDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF1E9E8284D808D00042484 /* PokemonDetailCollectionViewCell.swift */; };
 		6B6EF4242847DD340050BDFD /* PokemonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6EF4222847DD340050BDFD /* PokemonCollectionViewCell.swift */; };
 		6B6EF4252847DD340050BDFD /* PokemonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B6EF4232847DD340050BDFD /* PokemonCollectionViewCell.xib */; };
 		6B734EF32848D2CD00707C53 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B734EF22848D2CD00707C53 /* NetworkManager.swift */; };
@@ -34,6 +35,7 @@
 		6B89966728464F4E004B49AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B89966928464F4E004B49AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BC5BA5B28496005006B9703 /* PokemonDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailVC.swift; sourceTree = "<group>"; };
+		6BF1E9E8284D808D00042484 /* PokemonDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				6B734EF22848D2CD00707C53 /* NetworkManager.swift */,
 				6B734EF42848E6B400707C53 /* Pokemon.swift */,
 				6BC5BA5B28496005006B9703 /* PokemonDetailVC.swift */,
+				6BF1E9E8284D808D00042484 /* PokemonDetailCollectionViewCell.swift */,
 			);
 			path = PokeDex;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 				6B89966028464F3F004B49AD /* ViewController.swift in Sources */,
 				6B89965C28464F3F004B49AD /* AppDelegate.swift in Sources */,
 				6B734EF32848D2CD00707C53 /* NetworkManager.swift in Sources */,
+				6B0748F3284D83B4008170D3 /* PokemonDetailCollectionViewCell.swift in Sources */,
 				6B6EF4242847DD340050BDFD /* PokemonCollectionViewCell.swift in Sources */,
 				6BC5BA5C28496005006B9703 /* PokemonDetailVC.swift in Sources */,
 				6B89965E28464F3F004B49AD /* SceneDelegate.swift in Sources */,

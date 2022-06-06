@@ -10,12 +10,14 @@ import UIKit
 
 // Model
 struct Sprites: Codable {
-    let front_default: String? // url
+    // MARK: URLs
+    let front_default: String?
 //    let front_shiny: String?
-//    let back_default: String?
+    let back_default: String?
 //    let back_shiny: String?
 }
 
+// MARK: - Pokemons + properties to store
 struct Pokemon: Codable {
     let id: Int
     let name: String
@@ -23,6 +25,7 @@ struct Pokemon: Codable {
     
     // non j-son properties
     var imageData: Data?
+    var imageDataBack: Data?
 }
 
 extension UIImage {

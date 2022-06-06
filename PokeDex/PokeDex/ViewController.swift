@@ -7,6 +7,8 @@
 
 import UIKit
 
+var globalPokemon: Pokemon?
+
 class ViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -26,6 +28,7 @@ class ViewController: UIViewController {
         
         collectionView.register(PokemonCollectionViewCell.nib(), forCellWithReuseIdentifier: PokemonCollectionViewCell.identifier)
         
+        // networker.getPokemons() { [weak self] pokemons, wrror in <error etc> self?.myPomekons = pokemons!
         for id in 1...20 {
             networker.Pokemons(id: id) { [weak self] pokemon, error in
                 
@@ -50,14 +53,17 @@ class ViewController: UIViewController {
     // MARK: - CollectionView Delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print("You tapped me \(indexPath.item)")
+        print("You tapped \(indexPath.item)")
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "pokemonDetail") as! PokemonDetailVC
         let pokemon = myPokemons[indexPath.item]
         vc.titleText = pokemon!.name
+       // globalPokemon = pokemon
+//        vc.setup(with: pokemon)
         
-        //vc.imagePokemon = pokemon!.imageData
+        
         if let data = pokemon!.imageData {
+            // TODO: set image
             vc.imagePokemon = UIImage(data: data)!
         }
         
@@ -84,25 +90,40 @@ extension ViewController: UICollectionViewDataSource {
         cell.backgroundColor = .red
         
         let pokemon = myPokemons[indexPath.item]
+        globalPokemon = pokemon
         cell.title = pokemon?.name
         
         cell.image = nil
         
-       // let vc = self.storyboard?.instantiateViewController(withIdentifier: "pokemonDetail") as! PokemonDetailVC
-
-        networker.image(pokemon: pokemon!) { data, error  in
+        // MARK: - Set the current cell, download and store img
+        networker.image(pokemon: pokemon!, type: .front) { data, error  in
             let img = self.image(data: data)
             DispatchQueue.main.async {
                 cell.image = img
                 
-                // MARK: - Store image in pokemon structure
-                // myPokemons[indexPath.item]?.imageData = img
-                if let data = img?.pngRepresentationData {  // If image type is PNG
-                    self.myPokemons[indexPath.item]?.imageData = data
-                } else if let data = img?.jpegRepresentationData { // If image type is JPG/JPEG
-                    self.myPokemons[indexPath.item]?.imageData = data
-                     }
-               // vc.imagePokemon = img ?? UIImage(systemName: "picture")!
+            // Store image in pokemon structure
+            if let data = img?.pngRepresentationData {  // If image type is PNG
+                self.myPokemons[indexPath.item]?.imageData = data
+            } else if let data = img?.jpegRepresentationData { // If image type is JPG/JPEG
+                self.myPokemons[indexPath.item]?.imageData = data
+                 }
+                
+                
+            }
+        }
+        
+        // MARK: - Download and store back image
+        networker.image(pokemon: pokemon!, type: .back) { data, error  in
+            let img = self.image(data: data)
+            DispatchQueue.main.async {
+                
+            if let data = img?.pngRepresentationData {  // If image type is PNG
+                self.myPokemons[indexPath.item]?.imageDataBack = data
+            } else if let data = img?.jpegRepresentationData { // If image type is JPG/JPEG
+                self.myPokemons[indexPath.item]?.imageDataBack = data
+                 }
+            
+                
             }
         }
         
@@ -110,6 +131,7 @@ extension ViewController: UICollectionViewDataSource {
         return cell
     }
     
+    // convert image
     func image(data: Data?) -> UIImage? {
         if let data = data {
             return UIImage(data: data)

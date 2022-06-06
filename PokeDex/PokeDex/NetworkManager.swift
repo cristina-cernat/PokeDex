@@ -13,6 +13,10 @@ enum NetworkManagerError: Error {
   case badLocalUrl
 }
 
+struct Response: Codable {
+    let pokemons: [Pokemon]
+}
+
 class NetworkManager {
   
   static var shared = NetworkManager()
@@ -26,10 +30,14 @@ class NetworkManager {
   }
   
 
-  
+  // TODO: change name to getPokemons()
     func Pokemons(id: Int, completion: @escaping (Pokemon?, Error?) -> (Void)) {
       
       let req = URL(string: "https://pokeapi.co/api/v2/pokemon/" + String(id))!
+
+        // url = "https://pokeapi.co/api/v2/pokemon" 
+        // process the response in Result
+        // imageUrl =
     
     
     let task = session.dataTask(with: req) { data, response, error in
@@ -61,12 +69,13 @@ class NetworkManager {
     task.resume()
   }
   
+    // TODO: - change name to downloadImage(with: URL)
   private func download(imageURL: URL, completion: @escaping (Data?, Error?) -> (Void)) {
-    if let imageData = images.object(forKey: imageURL.absoluteString as NSString) {
-      print("using cached images")
-      completion(imageData as Data, nil)
-      return
-    }
+//    if let imageData = images.object(forKey: imageURL.absoluteString as NSString) {
+//      //print("using cached images")
+//      completion(imageData as Data, nil)
+//      return
+//    }
     
     let task = session.downloadTask(with: imageURL) { localUrl, response, error in
       if let error = error {
@@ -96,13 +105,37 @@ class NetworkManager {
     task.resume()
   }
   
-  func image(pokemon: Pokemon, completion: @escaping (Data?, Error?) -> (Void)) {
-      if let safeString = pokemon.sprites.front_default {
-          let url = URL(string: safeString)!
-          download(imageURL: url, completion: completion)
-      }
+    // TODO: - change name to getImage(ofType: Phototype)
+    // When I call this I also save the image to a struct
+    func image(pokemon: Pokemon, type: PhotoType, completion: @escaping (Data?, Error?) -> (Void)) {
+        
+        switch type {
+            
+        case .front:
+            if let safeString = pokemon.sprites.front_default {
+                let url = URL(string: safeString)!
+                self.download(imageURL: url, completion: completion)
+            }
+        
+        case .back:
+            if let safeString = pokemon.sprites.back_default {
+                let url = URL(string: safeString)!
+                self.download(imageURL: url, completion: completion)
+            }
+        
+        }
+//
+//        if let safeString = pokemon.sprites.front_default {
+//            let url = URL(string: safeString)!
+//            download(imageURL: url, completion: completion)
+//        }
   }
   
-  
+    enum PhotoType: String {
+        case front = "front_default"
+        case back = "back_default"
+//        case shiny = "front_shiny"
+//        case back_shiny = "back_shiny"
+    }
   
 }

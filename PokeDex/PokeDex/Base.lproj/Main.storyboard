@@ -33,7 +33,7 @@
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="20"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Lvg-Ae-vyl">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PokemonCollectionViewCell" id="Lvg-Ae-vyl">
                                         <rect key="frame" x="10" y="10" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eby-gT-szs">
@@ -72,36 +72,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MgW-WU-MuO">
-                                <rect key="frame" x="0.0" y="44" width="414" height="414"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxT-Xv-Is5">
                                 <rect key="frame" x="20" y="478" width="374" height="32"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qut-Mv-5TT">
+                                <rect key="frame" x="20" y="69" width="374" height="389"/>
+                            </imageView>
+                            <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eso-Cq-Vbm">
+                                <rect key="frame" x="0.0" y="44" width="414" height="414"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Eso-Cq-Vbm" secondAttribute="height" multiplier="1:1" id="nty-CL-nvU"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mgz-D8-VPb">
+                                    <size key="itemSize" width="399" height="411"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PokemonDetailCollectionViewCell" id="Z2N-dd-3cm" customClass="PokemonDetailCollectionViewCell" customModule="PokeDex" customModuleProvider="target">
+                                        <rect key="frame" x="7.5" y="0.0" width="399" height="411"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OtZ-ty-xke">
+                                            <rect key="frame" x="0.0" y="0.0" width="399" height="411"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="MgW-WU-MuO">
+                                                    <rect key="frame" x="8" y="8" width="383" height="395"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="399" height="411"/>
+                                        <connections>
+                                            <outlet property="imagePokemon" destination="MgW-WU-MuO" id="mxq-E6-50t"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wlE-A5-FkT"/>
                         <color key="backgroundColor" systemColor="systemPinkColor"/>
                         <constraints>
-                            <constraint firstItem="MgW-WU-MuO" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" id="0L9-BG-jtd"/>
-                            <constraint firstItem="wlE-A5-FkT" firstAttribute="trailing" secondItem="MgW-WU-MuO" secondAttribute="trailing" id="1hj-O1-KY5"/>
+                            <constraint firstItem="OxT-Xv-Is5" firstAttribute="top" secondItem="Eso-Cq-Vbm" secondAttribute="bottom" constant="20" id="3Zr-Ac-Yjy"/>
                             <constraint firstItem="wlE-A5-FkT" firstAttribute="trailing" secondItem="OxT-Xv-Is5" secondAttribute="trailing" constant="20" id="8yW-If-dny"/>
-                            <constraint firstItem="MgW-WU-MuO" firstAttribute="top" secondItem="wlE-A5-FkT" secondAttribute="top" id="L4D-X1-6Hl"/>
-                            <constraint firstItem="MgW-WU-MuO" firstAttribute="height" secondItem="zc4-cY-mDo" secondAttribute="width" multiplier="1:1" id="MQZ-5c-a3O"/>
+                            <constraint firstItem="Eso-Cq-Vbm" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" id="KXJ-oY-uUn"/>
+                            <constraint firstItem="qut-Mv-5TT" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" constant="20" id="NaY-7h-y8x"/>
+                            <constraint firstItem="Eso-Cq-Vbm" firstAttribute="top" secondItem="wlE-A5-FkT" secondAttribute="top" id="T45-dh-rSv"/>
                             <constraint firstItem="OxT-Xv-Is5" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" constant="20" id="TVk-6R-6aL"/>
-                            <constraint firstItem="OxT-Xv-Is5" firstAttribute="top" secondItem="MgW-WU-MuO" secondAttribute="bottom" constant="20" id="kjf-wI-fTX"/>
+                            <constraint firstItem="Eso-Cq-Vbm" firstAttribute="trailing" secondItem="wlE-A5-FkT" secondAttribute="trailing" id="WSY-4P-U4u"/>
+                            <constraint firstItem="OxT-Xv-Is5" firstAttribute="top" secondItem="Eso-Cq-Vbm" secondAttribute="bottom" constant="20" id="czD-Q0-SbR"/>
+                            <constraint firstItem="qut-Mv-5TT" firstAttribute="top" secondItem="wlE-A5-FkT" secondAttribute="top" constant="25" id="rve-VV-keY"/>
+                            <constraint firstItem="OxT-Xv-Is5" firstAttribute="top" secondItem="qut-Mv-5TT" secondAttribute="bottom" constant="20" id="wAm-xy-pEo"/>
+                            <constraint firstItem="wlE-A5-FkT" firstAttribute="trailing" secondItem="qut-Mv-5TT" secondAttribute="trailing" constant="20" id="zsA-W4-pop"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imagePokemonDetail" destination="MgW-WU-MuO" id="9X7-6R-1KW"/>
+                        <outlet property="collectionViewDetail" destination="Eso-Cq-Vbm" id="NPl-8f-pek"/>
+                        <outlet property="imagePokemonDetail" destination="qut-Mv-5TT" id="GOu-0c-Rbs"/>
                         <outlet property="titleLabel" destination="OxT-Xv-Is5" id="IEF-37-HLb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oir-bG-Yvy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="719" y="112"/>
+            <point key="canvasLocation" x="714.49275362318849" y="119.86607142857142"/>
         </scene>
     </scenes>
     <resources>
