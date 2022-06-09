@@ -42,7 +42,6 @@ class PokemonDetailVC: UIViewController, UICollectionViewDataSource {
         super.viewDidLoad()
 
         titleLabel.text = titleText
-    //    imagePokemonDetail.image = imagePokemon
         
         weightLabel.text = weightext
         heightLabel.text = heightText
@@ -58,7 +57,7 @@ class PokemonDetailVC: UIViewController, UICollectionViewDataSource {
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return images?.count ?? 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

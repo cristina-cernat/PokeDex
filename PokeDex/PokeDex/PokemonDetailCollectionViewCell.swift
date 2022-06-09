@@ -14,6 +14,7 @@ class PokemonDetailCollectionViewCell: UICollectionViewCell {
     func setup(with image: UIImage) {
         imagePokemon.image = image
         self.isHidden = false
+        imagePokemon.backgroundColor = .red
         
     }
     

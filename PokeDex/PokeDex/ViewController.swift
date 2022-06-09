@@ -16,8 +16,6 @@ class ViewController: UIViewController {
     // MARK: - Local variables
     let networker = NetworkManager.shared
     var myPokemons: [Pokemon?] = []
-   // let url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-    // number.png; /shiny/number.png; /back.png; /back/shiny/number.png
     
     // MARK: - View life cycle
     override func viewDidLoad() {
@@ -28,7 +26,6 @@ class ViewController: UIViewController {
         
         collectionView.register(PokemonCollectionViewCell.nib(), forCellWithReuseIdentifier: PokemonCollectionViewCell.identifier)
         
-        // networker.getPokemons() { [weak self] pokemons, wrror in <error etc> self?.myPomekons = pokemons!
         for id in 1...20 {
             networker.Pokemons(id: id) { [weak self] pokemon, error in
                 
@@ -44,9 +41,6 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
-          
-
 
     }
 
@@ -79,23 +73,16 @@ class ViewController: UIViewController {
             }
             
         }
-//        vc.hpText += String(pokemon!.stats[])
         
-        
-       // globalPokemon = pokemon
-//        vc.setup(with: pokemon)
-        
-        
-        
-        if let data = pokemon!.imageData, let data2 = pokemon!.imageDataBack {
-            // TODO: set image
-            if let image1 = UIImage(data: data), let image2 = UIImage(data: data2) {
-                vc.images = [image1, image2]
+        // TODO: refactor with Pokemon.images dictionary
+        // MARK: - Set images
+        if let data = pokemon!.imageData, let data2 = pokemon!.imageDataBack, let data3 = pokemon!.imageDataShiny, let data4 = pokemon!.imageDataBackShiny {
+
+            if let image1 = UIImage(data: data), let image2 = UIImage(data: data2), let image3 = UIImage(data: data3), let image4 = UIImage(data: data4) {
+                vc.images = [image1, image2, image3, image4]
             }
             
         }
-        
-        
         
         present(vc, animated: true)
         
@@ -123,6 +110,7 @@ extension ViewController: UICollectionViewDataSource {
         
         cell.image = nil
         
+        // TODO: - refactor with Pokemon.images dictionary
         // MARK: - Set the current cell, download and store img
         networker.image(pokemon: pokemon!, type: .front) { data, error  in
             let img = self.image(data: data)
@@ -135,12 +123,10 @@ extension ViewController: UICollectionViewDataSource {
             } else if let data = img?.jpegRepresentationData { // If image type is JPG/JPEG
                 self.myPokemons[indexPath.item]?.imageData = data
                  }
-                
-                
             }
         }
         
-        // MARK: - Download and store back image
+        // MARK: - Download and store other images
         networker.image(pokemon: pokemon!, type: .back) { data, error  in
             let img = self.image(data: data)
             DispatchQueue.main.async {
@@ -150,12 +136,37 @@ extension ViewController: UICollectionViewDataSource {
             } else if let data = img?.jpegRepresentationData { // If image type is JPG/JPEG
                 self.myPokemons[indexPath.item]?.imageDataBack = data
                  }
-            
-                
             }
         }
         
+        networker.image(pokemon: pokemon!, type: .shiny) { data, error  in
+            let img = self.image(data: data)
+            DispatchQueue.main.async {
+                
+            if let data = img?.pngRepresentationData {  // If image type is PNG
+                self.myPokemons[indexPath.item]?.imageDataShiny = data
+            } else if let data = img?.jpegRepresentationData { // If image type is JPG/JPEG
+                self.myPokemons[indexPath.item]?.imageDataShiny = data
+                 }
+            }
+        }
         
+        networker.image(pokemon: pokemon!, type: .back_shiny) { data, error  in
+            let img = self.image(data: data)
+            DispatchQueue.main.async {
+                
+            if let data = img?.pngRepresentationData {  // If image type is PNG
+                self.myPokemons[indexPath.item]?.imageDataBackShiny = data
+            } else if let data = img?.jpegRepresentationData { // If image type is JPG/JPEG
+                self.myPokemons[indexPath.item]?.imageDataBackShiny = data
+                 }
+            }
+        }
+        
+        for type in PhotoType.allCases {
+            setImage(pokemon: pokemon!, type: type, index: indexPath.item)
+
+        }
         return cell
     }
     
@@ -167,6 +178,18 @@ extension ViewController: UICollectionViewDataSource {
         return UIImage(systemName: "picture")
     }
     
+    func setImage(pokemon: Pokemon, type: PhotoType, index: Int) {
+        networker.image(pokemon: pokemon, type: type) { data, error  in
+            let img = self.image(data: data)
+            DispatchQueue.main.async {
+                
+                if let data = img?.pngRepresentationData {
+                    self.myPokemons[index]?.imageDataBackShiny = data
+                }
+                
+            }
+        }
+    }
    
 }
 

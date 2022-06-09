@@ -12,9 +12,9 @@ import UIKit
 struct Sprites: Codable {
     // MARK: URLs
     let front_default: String?
-//    let front_shiny: String?
+    let front_shiny: String?
     let back_default: String?
-//    let back_shiny: String?
+    let back_shiny: String?
 }
 
 // MARK: - Pokemons + properties to store
@@ -27,8 +27,13 @@ struct Pokemon: Codable {
     let stats: [Stats]
     
     // non j-son properties
+    // TODO: use this dict
+    var images: [String: Data]?
+    
     var imageData: Data?
     var imageDataBack: Data?
+    var imageDataShiny: Data?
+    var imageDataBackShiny: Data?
 }
 
 struct Stats: Codable {
