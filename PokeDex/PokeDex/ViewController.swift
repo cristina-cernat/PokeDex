@@ -58,13 +58,41 @@ class ViewController: UIViewController {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "pokemonDetail") as! PokemonDetailVC
         let pokemon = myPokemons[indexPath.item]
         vc.titleText = pokemon!.name
+        
+        vc.heightText += String(pokemon!.height)
+        vc.weightext += String(pokemon!.weight)
+        
+        for stat in pokemon!.stats {
+
+            switch stat.stat.name {
+            case "hp":
+                vc.hpText += String(stat.base_stat)
+            case "attack":
+                vc.atkText += String(stat.base_stat)
+            case "defense":
+                vc.defText += String(stat.base_stat)
+            case "speed":
+                vc.spdText += String(stat.base_stat)
+
+            default:
+                print("default")
+            }
+            
+        }
+//        vc.hpText += String(pokemon!.stats[])
+        
+        
        // globalPokemon = pokemon
 //        vc.setup(with: pokemon)
         
         
-        if let data = pokemon!.imageData {
+        
+        if let data = pokemon!.imageData, let data2 = pokemon!.imageDataBack {
             // TODO: set image
-            vc.imagePokemon = UIImage(data: data)!
+            if let image1 = UIImage(data: data), let image2 = UIImage(data: data2) {
+                vc.images = [image1, image2]
+            }
+            
         }
         
         

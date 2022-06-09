@@ -22,10 +22,22 @@ struct Pokemon: Codable {
     let id: Int
     let name: String
     let sprites: Sprites
+    let weight: Int
+    let height: Int
+    let stats: [Stats]
     
     // non j-son properties
     var imageData: Data?
     var imageDataBack: Data?
+}
+
+struct Stats: Codable {
+    let base_stat: Int // the actual value for the stat
+    let stat: Stat
+}
+
+struct Stat: Codable {
+    let name: String
 }
 
 extension UIImage {

@@ -11,10 +11,10 @@ class PokemonDetailCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imagePokemon: UIImageView!
     
-    func setup(with pokemon: Pokemon) {
-        if let data = pokemon.imageData {
-            imagePokemon.image = UIImage(data: data)!
-        }
+    func setup(with image: UIImage) {
+        imagePokemon.image = image
+        self.isHidden = false
+        
     }
     
 }
