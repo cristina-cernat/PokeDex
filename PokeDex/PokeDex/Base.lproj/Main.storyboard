@@ -156,16 +156,26 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptn-5x-Hxe">
+                                <rect key="frame" x="20" y="64" width="42" height="32"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="closeButton:" destination="k3T-sg-6IJ" eventType="touchUpInside" id="7zq-8h-yfB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wlE-A5-FkT"/>
                         <color key="backgroundColor" systemColor="systemPinkColor"/>
                         <constraints>
+                            <constraint firstItem="ptn-5x-Hxe" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" constant="20" id="0BW-jd-DgQ"/>
                             <constraint firstItem="qEN-6v-Mgp" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" constant="50" id="0kW-hh-F17"/>
                             <constraint firstItem="wlE-A5-FkT" firstAttribute="trailing" secondItem="2Gf-GN-bFn" secondAttribute="trailing" constant="50" id="2sF-Kw-ueC"/>
                             <constraint firstItem="OxT-Xv-Is5" firstAttribute="top" secondItem="Eso-Cq-Vbm" secondAttribute="bottom" constant="20" id="3Zr-Ac-Yjy"/>
                             <constraint firstItem="wlE-A5-FkT" firstAttribute="trailing" secondItem="TSO-sH-b30" secondAttribute="trailing" constant="50" id="7ZB-r9-jdD"/>
                             <constraint firstItem="2Gf-GN-bFn" firstAttribute="leading" secondItem="wlE-A5-FkT" secondAttribute="leading" constant="50" id="80o-ih-j6D"/>
                             <constraint firstItem="wlE-A5-FkT" firstAttribute="trailing" secondItem="OxT-Xv-Is5" secondAttribute="trailing" constant="20" id="8yW-If-dny"/>
+                            <constraint firstItem="ptn-5x-Hxe" firstAttribute="top" secondItem="wlE-A5-FkT" secondAttribute="top" constant="20" id="8yn-MU-Bx7"/>
                             <constraint firstItem="qEN-6v-Mgp" firstAttribute="top" secondItem="OxT-Xv-Is5" secondAttribute="bottom" constant="50" id="CWf-63-6Fw"/>
                             <constraint firstItem="wlE-A5-FkT" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2Gf-GN-bFn" secondAttribute="bottom" constant="20" id="D5V-Tj-ZZJ"/>
                             <constraint firstItem="wlE-A5-FkT" firstAttribute="trailing" secondItem="nFr-3F-nH7" secondAttribute="trailing" constant="50" id="FDE-dY-vZX"/>

@@ -11,7 +11,10 @@ class PokemonDetailVC: UIViewController, UICollectionViewDataSource {
     
 
 
-    @IBOutlet weak var imagePokemonDetail: UIImageView!
+    @IBAction func closeButton(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var weightLabel: UILabel!

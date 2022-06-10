@@ -7,8 +7,6 @@
 
 import UIKit
 
-var globalPokemon: Pokemon?
-
 class ViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -105,25 +103,28 @@ extension ViewController: UICollectionViewDataSource {
         cell.backgroundColor = .red
         
         let pokemon = myPokemons[indexPath.item]
-        globalPokemon = pokemon
         cell.title = pokemon?.name
         
         cell.image = nil
         
         // TODO: - refactor with Pokemon.images dictionary
-        // MARK: - Set the current cell, download and store img
+        // MARK: - Download and store img, set the current cell image
         networker.image(pokemon: pokemon!, type: .front) { data, error  in
             let img = self.image(data: data)
             DispatchQueue.main.async {
-                cell.image = img
-                
+                self.collectionView.reloadData()
+
             // Store image in pokemon structure
             if let data = img?.pngRepresentationData {  // If image type is PNG
                 self.myPokemons[indexPath.item]?.imageData = data
             } else if let data = img?.jpegRepresentationData { // If image type is JPG/JPEG
                 self.myPokemons[indexPath.item]?.imageData = data
                  }
+                
+
             }
+            
+
         }
         
         // MARK: - Download and store other images
@@ -163,10 +164,20 @@ extension ViewController: UICollectionViewDataSource {
             }
         }
         
-        for type in PhotoType.allCases {
-            setImage(pokemon: pokemon!, type: type, index: indexPath.item)
-
+        // TODO: 
+//        for type in PhotoType.allCases {
+//            setImage(pokemon: pokemon!, type: type, index: indexPath.item)
+//
+//        }
+        
+        
+        
+        if let data = pokemon!.imageData {
+            if let image = UIImage(data: data) {
+                cell.image = image
+            }
         }
+        
         return cell
     }
     
@@ -184,6 +195,7 @@ extension ViewController: UICollectionViewDataSource {
             DispatchQueue.main.async {
                 
                 if let data = img?.pngRepresentationData {
+                    // TODO: - use the images dict
                     self.myPokemons[index]?.imageDataBackShiny = data
                 }
                 
